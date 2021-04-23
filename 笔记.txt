@@ -1,0 +1,72 @@
+1、查看工作区状态命令：git status
+2、将工作区文件提交至暂存区：git add <file>
+3、将暂存区文件回退到工作区：git rm --cache <file> 或 git reset HEAD <file>
+4、将暂存区所有文件提价到版本库：git commit -m '<comment message>'
+5、查看提交历史：git log
+6、对于committer来说，user.name和user.email有2个地方可以设置：
+		(1)、~/.gitconfig(如果电脑里的项目没有设置gitconfig信息，则所有项目都使用这个配置信息，~表示当前用户目录)，配置命令：git config --global user.name 'xxx' user.email 'xxx@xxx.xxx'
+		(2)、针对于特定项目的，在特定项目的 .git/config文件中配置，配置命令：git config --local user.name 'xxx' user.email 'xxx@xxx.xxx'
+7、删除某一项git配置：git config --unset <key>
+8、vim命令打开文件后直接定位到第几行命令：:<linenumber>
+9、将对版本库或者暂存区文件所进行的修改内容丢弃掉：git checkout -- <file> (文件回到原来所在的区，即版本库或者暂存区)
+10、完全修改文件内容：echo xxx > <file> (将echo后面的输出内容重定向到文件当中)，还可用于快速新建文件
+11、快速移动到一行命令的开头：ctrl + A
+12、将已提交至版本库的文件删除：git rm <file>，此时文件在暂存区，并没有提交使其真正删除，如果想要真正删除文件，
+		执行命令：git commit -m '<commit message>'
+13、将误删除的文件恢复：
+		(1)、git reset HEAD <file>	(此时工作区目录还没有该文件)
+		(2)、git checkout -- <file>	(此时工作区目录存在了该文件)
+14、把工作区所有文件纳入到暂存区：git add .
+15、vim命令：空格(翻页)，ctrl + F(向下翻页)，ctrl + B(往回翻页)
+16、查看最近N条的提交log：git log -<num>
+17、以简单一行的形式查看log：git log --pretty=oneline
+18、依次执行多个命令用&&连接
+19、回到上次进入的目录：cd -
+20、列出分支：git branch
+21、创建分支：git branch <branch>
+22、创建新分支并同时切换到这个分支：git checkout -b <branch>
+23、删除分支(要在其他分支上删除所要删除的分支，若所要删除的分支上有没有合并的修改内容，会提示错误信息，不能删除		)：git branch -d <branch>
+24、无论所要删除的分支上是否含有没有合并的信息都要删除该分支：git branch -D <branch>
+25、显示当前分支最近的一条提交信息：git branch -v
+26、将分支修改的内容合并到当前分支：git merge <branch>
+27、HEAD指向当前分支，master或者其他分支指向提交
+28、将已跟踪过的(tracked)即提交过版本库又进行修改的工作区文件纳入到暂存区并提交到版本库：git commit -am '<commit message>'
+29、以图形化形式显示简化版提交信息：git log --graph --abbrev-commit
+30、回退到上一版本：git reset --hard HEAD^
+31、回退到上n版本：git reset --hard HEAD~n
+32、回退到某一版本：git reset --hard commit_id
+33、查看git的操作历史：git reflog
+34、以历史的某一个版本为起始点创建分支(游离态：detached HEAD state)：git checkout <commit_id>
+	(1)、此时未做修改可以直接切换到其他分支
+	(2)、若做了修改，则切换到其他分支时会提示错误信息：
+			error: Your local changes to the following files would be overwritten by checkout:
+					<some file>
+			Please, commit your changes or stash(储存) them before you can switch branches.
+		需要将修改提交，产生一个新的commit id，然后创建分支：git branch <new-branch-name> <new-commit-id>
+35、如果在一个分支上进行修改且未提交，此时要切换到另一个分支，而另一个分支有了新的提交，是切不过去的(因为会导致		当前分支的修改丢失)，若想成功切换，需要将当前分支的修改状态保存起来：git stash
+36、列出保存现场：git stash list
+37、恢复现场：git stash pop(恢复的同时将stash内容删除)
+			 git stash apply(恢复的同时不删除stash内容，需要通过git stash drop stash@{0}手动删除)
+38、查看文件的修改历史：git blame <file_name>
+39、比较两个文件差异(Linux)：diff <file1> <file2>，看详细信息：diff -u <file1> <file2>
+40、比较工作区和暂存区(文件已纳入到暂存区，且又在工作区进行了修改，源是暂存区，比较目标是工作区)：git diff
+41、比较工作区和最新提交(源是最新提交，比较目标是工作区)：git diff HEAD
+42、比较工作区和某一提交：git diff commit_id
+43、比较暂存区和最新提交：git diff --cached
+44、比较暂存区和某一提交：git diff --cached commit_id
+45、将本地git项目推送到远程GitHub：
+	(1)、git remote add origin(远程仓库链接的代号或者别名) <github repository link>
+	(2)、git push -u(将本地master分支与远程仓库做关联，以后推送直接使用git push即可) origin master
+46、列出与当前本地git仓库相关联的远程git仓库：git remote show
+47、显示与当前本地git仓库相关联的远程github仓库详细信息：git remote show origin(ssh方式会在~目录下生成.ssh目录及此目录下的known_hosts文件)
+48、基于Git分支的开发模型：
+	(1)、develop分支(频繁变化的一个分支)
+	(2)、test分支(供测试与产品等人员使用的一个分支，变化不是特别频繁)
+	(3)、master分支(生产发布分支，变化非常不频繁的一个分支)
+	(4)、bugfix(hotfix)分支(生产系统当中出现了紧急Bug，用于紧急修复的分支)
+49、https推送方式需要用户名和密码，ssh方式不需要，但需要在本地生成公钥和私钥，将公钥放在远程GitHub，每次push的			时候会携带私钥与公钥进行配对，这样就不需要每次都输入用户名和密码了。
+50、远程GitHub的ssh信息存放在~/.ssh/known_hosts文件中
+51、生成本地ssh公钥和私钥命令：ssh-keygen，生成的公钥和私钥文件也会存放在~/.ssh目录中
+52、本地没有tracking information即没有向远程GitHub仓库推送过信息不能直接使用git pull命令
+	需要使用git pull <origin> <branch> 来使远程与本地分支产生关联
+53、
