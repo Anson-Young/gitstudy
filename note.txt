@@ -74,6 +74,6 @@ git pull <origin> <branch> 来使远程与本地分支产生关联
 55、查看本地所有分支并显示各个分支最后的提交信息：git branch -av
 56、将远程项目克隆到本地：git clone <ssh_link> <project name in local>
 57、vim删除多行：(命令模式下):<要删除内容的起始行号>,<要删除内容的末尾行号>d，然后回车
-58、如果git pull产生conflict，origin/master分支不会fast forward，解决完git pull产生的conflict之后(git add  git commit)，本地版本库会领先origin/master两个版本，一个是之前修改后commit的版本，一个是解决完冲突commit的版本
+58、如果git pull产生conflict，origin/master分支仍然会fast forward，解决完git pull产生的conflict之后(git add  git commit)，本地版本库会领先origin/master两个版本，一个是之前修改后commit的版本，一个是解决完冲突commit的版本
 59、git pull = git fetch + git merge
 60、
