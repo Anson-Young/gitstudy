@@ -1,6 +1,7 @@
 1、查看工作区状态命令：git status
 2、将工作区文件提交至暂存区：git add <file>
 3、将暂存区文件回退到工作区：git rm --cache <file> 或 git reset HEAD <file>
+   其中git rm --cached <file> 还可以实现：将文件从暂存区删除但仍保留在工作区
 4、将暂存区所有文件提价到版本库：git commit -m '<comment message>'
 5、查看提交历史：git log
 6、对于committer来说，user.name和user.email有2个地方可以设置：
@@ -109,4 +110,14 @@ git pull <origin> <branch> 来使远程与本地分支产生关联
 76、当远程分支已经被删除时，执行git pull命令会报错，此时应先执行
     git remote prune origin
 77、refspec是指一种引用规范，对应的是仓库.git目录下的refs目录
-78、
+78、对于git的理解：
+    (1)、执行完每个git命令之后，整个git仓库(工作区，暂存区，版本库)都会处于一个          新的状态。例如：对于已纳入到版本库的文件在执行完 git rm <file>之后，暂         存区和工作区的文件会被删除，而版本库的文件依然存在，此时有如下两种情况：
+        ①、执行git commit 命令，文件会从版本库删除
+        ②、执行git reset HEAD <file> 命令，暂存区会恢复到文件被删除之前的状态，            即此时文件又回到了暂存区，而工作区还没有该文件。这也就引出了
+           git reset HEAD <file> 命令的本质：回退暂存区里的文件，还原为文件被提            交到版本库时的状态，即让暂存区里文件的状态与版本库一致。
+           之后执行git checkout -- <file>，工作区里消失的该文件被恢复，此时git仓           库(工作区，暂存区，版本库)的状态与执行git rm <file> 命令之前一致
+    (2)、其实执行完git add <file> 命令之后并不是将文件从工作区移动到暂存区，而是         工作区依然有该文件，同时暂存区也有了该文件，相当于拷贝。
+    	 git checkout -- <file> 也是相当于从暂存区将文件复制到了工作区
+	 git rm --cached <file> 是仅将文件从暂存区移除，而工作区中文件仍然保留
+79、
+
