@@ -83,10 +83,27 @@ git pull <origin> <branch> 来使远程与本地分支产生关联
 61、给外部命令起别名：git config --global alias.<别名名称> '!<外部命令名称>'
     例：git config --global alias.ui '!gitk'
 62、upstream branch是与本地分支相对应的远程分支
-63、将本地分支推送到远程：git push --set-upstream origin <branch_name>
+63、将本地分支推送到远程：git push --set-upstream origin <branch_name> 或 git push origin <branch_name>
+    附：当本地分支名与远程不同：git push --set-upstream origin <local_branch_name>:<remote_branch_name> 或 
+    git push origin HEAD:<remote_branch_name> 或 git push origin <local_branch_name>:<remote_branch_name>
 64、很多时候远程非master分支与本地master分支不是处在一个提交点，这时在本地新建分支时需要追加远程分支(本地新建分     支会自动指向master分支所指向的提交点)：
     git checkout -b develop origin/develop
     或：
     git checkout --track origin/develop(名字默认与远程相同)
 65、git push的完整写法：git push origin <本地分支名>:<远程分支名>
-66、删除远程分支：
+66、删除远程develop分支：
+    (1)、第一种方式：git push origin :develop
+    (2)、第二种方式：git push origin --delete develop
+67、git pull完整命令：git pull origin <remote_branch_name>:<local_branch_name>
+68、HEAD标记：HEAD文件是一个指向当前所在分支的引用标识符，该文件内部并不包含SHA-    1值，而是一个指向另外一个引用的指针
+69、对于HEAD修改的任何操作，都会被git reflog完整记录下来
+70、打标签命令：git tag <tag_name>
+71、打带有注释的标签：git tag -a <tag_name> -m '<comment message>'
+72、列出标签：git tag
+73、显示某一标签信息：git show<tag_name>
+74、搜索标签：git tag -l '<search info>'
+75、将未推送到远程的tag信息推送到远程：
+    git push origin <tag_name1> <tag_name2> ...
+    或
+    git push origin --tags
+76、
