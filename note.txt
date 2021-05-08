@@ -119,5 +119,15 @@ git pull <origin> <branch> 来使远程与本地分支产生关联
     (2)、其实执行完git add <file> 命令之后并不是将文件从工作区移动到暂存区，而是         工作区依然有该文件，同时暂存区也有了该文件，相当于拷贝。
     	 git checkout -- <file> 也是相当于从暂存区将文件复制到了工作区
 	 git rm --cached <file> 是仅将文件从暂存区移除，而工作区中文件仍然保留
-79、
-
+79、git项目添加子模块：git submodule add <remote url of submodule> <local dir>
+80、git父工程拉取所有子模块更新：git submodule foreach git pull
+81、git克隆(包含子模块)：git clone <ssh_url> <local project name> --recursive
+82、使用subtree命令引入子模块：
+    git remote add subtree-origin <submodule_url>
+    git subtree add --prefix=<local dir> subtree-origin <submodule branch>
+83、subtree与submodule区别：
+    (1)、subtree在github父工程的体现形式是一个文件夹里存放子模块文件的拷贝，
+    	 而submodule则是存放的子模块的引用，点击会跳转到子模块
+84、--squash与subtree并无关系，是subtree命令的可选参数，在父工程merge子模块的时     候使用，会将子模块的修改压缩打包成一个提交merge到父工程，之后在父工程的
+    git log里不会体现子模块的修改历史
+85、
