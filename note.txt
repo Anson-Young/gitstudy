@@ -10,7 +10,7 @@
 7、删除某一项git配置：git config --unset <key>
 8、vim命令打开文件后直接定位到第几行命令：:<linenumber>
 9、将对版本库或者暂存区文件所进行的修改内容丢弃掉：git checkout -- <file> (文件回到原来所在的区，即版本库或者暂存区)
-10、完全修改文件内容：echo xxx > <file> (将echo后面的输出内容重定向到文件当中)，还可用于快速新建文件
+10、完全修改文件内容：echo xxx > <file> (将echo后面的输出内容重定向到文件当中)，还可用于快速新建文件；echo xxx >> <file> 是将xxx内容追加到文件末尾
 11、快速移动到一行命令的开头：ctrl + A
 12、将已提交至版本库的文件删除：git rm <file>，此时文件在暂存区，并没有提交使其真正删除，如果想要真正删除文件，
 		执行命令：git commit -m '<commit message>'
@@ -124,10 +124,14 @@ git pull <origin> <branch> 来使远程与本地分支产生关联
 81、git克隆(包含子模块)：git clone <ssh_url> <local project name> --recursive
 82、使用subtree命令引入子模块：
     git remote add subtree-origin <submodule_url>
-    git subtree add --prefix=<local dir> subtree-origin <submodule branch>
+    git subtree add --prefix=<local dir> subtree-origin <submodule branch> --squash
+    此时父工程会产生两个提交：1、子项目被squash了的历史记录；2、与父工程进行merge所产生的提交
 83、subtree与submodule区别：
     (1)、subtree在github父工程的体现形式是一个文件夹里存放子模块文件的拷贝，
     	 而submodule则是存放的子模块的引用，点击会跳转到子模块
 84、--squash与subtree并无关系，是subtree命令的可选参数，在父工程merge子模块的时     候使用，会将子模块的修改压缩打包成一个提交merge到父工程，之后在父工程的
     git log里不会体现子模块的修改历史
-85、
+85、subtree只有在一种情况下会产生冲突：父工程修改了子工程文件，commit并push到远     程，子工程pull；子工程修改同样的文件，commit并push到远程，父工程pull
+    对于产生此冲突原因的个人理解：
+    通过图形化界面可以看出，进行三方合并merge的时候两条分支是能够找到共同的祖先     的，虽然父工程分支上还能够找到其自己的祖先，但我认为这应该是subtree自身的特     点，不是产生冲突的问题所在，真正的原因应该是父子工程进行三方合并的时候父工程    的parent点和子工程的这次合并的最初parent点是一样的，即意味着父子工程都改了同    一行。改同一行产生冲突也是合并分支或者不同开发者之间合并时产生冲突的根本原因    。而subtree产生这种冲突是不可避免的，必须通过手动解决，因为子工程pull的时候     会产生和父工程commit时相同的commit。
+86、
