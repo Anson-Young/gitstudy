@@ -38,7 +38,7 @@
 32、回退到某一版本：git reset --hard commit_id
 33、查看git的操作历史：git reflog
 34、以历史的某一个版本为起始点创建分支(游离态：detached HEAD state)：git checkout <commit_id>
-	(1)、此时未做修改可以直接切换到其他分支
+	(1)、此时未做修改可以直接切换到其他分支，或者直接新建分支：git branch <new-branch-name>
 	(2)、若做了修改，则切换到其他分支时会提示错误信息：
 			error: Your local changes to the following files would be overwritten by checkout:
 					<some file>
@@ -135,4 +135,4 @@ git pull <origin> <branch> 来使远程与本地分支产生关联
 86、subtree只有在一种情况下会产生冲突：父工程修改了子工程文件，commit并push到远     程，子工程pull；子工程修改同样的文件，commit并push到远程，父工程pull
     对于产生此冲突原因的个人理解：
     通过图形化界面可以看出，进行三方合并merge的时候两条分支是能够找到共同的祖先     的，虽然父工程分支上还能够找到其自己的祖先，但我认为这应该是subtree自身的特     点，不是产生冲突的问题所在，真正的原因应该是父子工程进行三方合并的时候父工程    的parent点和子工程的这次合并的最初parent点是一样的，即意味着父子工程都改了同    一行。改同一行产生冲突也是合并分支或者不同开发者之间合并时产生冲突的根本原因    。而subtree产生这种冲突是不可避免的，必须通过手动解决，因为子工程pull的时候     会产生和父工程commit时相同的commit。
-87、
+87、将某一个分支的修改应用到当前分支：git cherry-pick <commit_id>
