@@ -153,4 +153,5 @@ git pull <origin> <branch> 来使远程与本地分支产生关联
     (3)、git rebase --abort 恢复到分支原来的状态
 90、不要在多人共享的远程分支上应用git rebase，
     个人认为理由是git rebase涉及到多个分支以及多个分支的提交历史
-91、
+91、build.gradle中如果指定引入的jar包为providedCompile，表示该jar包仅在编译期使	    用，项目发布的时候不会放到服务器上，因为服务器上也有相应的jar包，例如Tomcat     自带的Servlet相关jar包
+92、
