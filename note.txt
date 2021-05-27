@@ -65,7 +65,7 @@
 	(2)、test分支(供测试与产品等人员使用的一个分支，变化不是特别频繁)
 	(3)、master分支(生产发布分支，变化非常不频繁的一个分支)
 	(4)、bugfix(hotfix)分支(生产系统当中出现了紧急Bug，用于紧急修复的分支)
-49、https推送方式需要用户名和密码，ssh方式不需要，但需要在本地生成公钥和私钥，将公钥放在远程GitHub，每次push的时候会携带私钥与公钥进行配对，这样就不需要每次都输入用户名和密码了。
+49、https推送方式需要用户名和密码，ssh方式不需要，但需要在本地生成公钥和私钥，将公钥放在远程GitHub，每次push的时候会携带私钥与公钥进行配对，这样就不需要每次都输入用户名和密码了。
 50、远程GitHub的ssh信息存放在~/.ssh/known_hosts文件中
 51、生成本地ssh公钥和私钥命令：ssh-keygen，生成的公钥和私钥文件也会存放在~/.ssh目录中
 52、本地没有tracking information即没有向远程GitHub仓库推送过信息不能直接使用git pull命令需要使用
@@ -85,8 +85,9 @@ git pull <origin> <branch> 来使远程与本地分支产生关联
     例：git config --global alias.ui '!gitk'
 62、upstream branch是与本地分支相对应的远程分支
 63、将本地分支推送到远程：git push --set-upstream origin <branch_name> 或 git push origin <branch_name>
-    附：当本地分支名与远程不同：git push --set-upstream origin <local_branch_name>:<remote_branch_name> 或 
+    附1：当本地分支名与远程不同：git push --set-upstream origin <local_branch_name>:<remote_branch_name> 或 
     git push origin HEAD:<remote_branch_name> 或 git push origin <local_branch_name>:<remote_branch_name>
+    附2：git push -u origin <branch_name> 为 git push --set-upstream origin <branch_name>的省略形式
 64、很多时候远程非master分支与本地master分支不是处在一个提交点，这时在本地新建分    支时需要追加远程分支(本地新建分支会自动指向master分支所指向的提交点)：
     git checkout -b develop origin/develop
     或：
